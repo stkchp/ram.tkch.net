@@ -1,0 +1,92 @@
+body { color: #333; background-color: #FFF;}
+
+* { font-family:"游ゴシック", YuGothic, "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", sans-serif;}
+
+body div, canvas {
+	display: none;
+}
+
+canvas, img {
+	image-rendering: pixelated;
+}
+
+body div.show {
+	display: block;
+}
+
+body > div.show {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+
+
+/* NAV */
+nav#top {
+	top: 0;
+	right: 0;
+	width: 100%;
+	position: fixed;
+	padding: 0.3em;
+	background-color: #000;
+}
+nav#top a {
+	color: #FFF;
+}
+nav#top ul {
+	margin: 0;
+	padding: 0;
+}
+nav#top ul li {
+	display: inline;
+	margin-left: 0.5em;
+}
+body {
+	padding-top: 2em;
+}
+
+/* page title */
+h1 {
+	text-align: right;
+	font-size: 100%;
+	font-weight: normal;
+}
+#h1desc {
+	font-size: 70%;
+	text-align: right;
+}
+
+/* footer */
+footer {
+	text-align: right;
+}
+footer img {
+	width: 24px;
+	height: 24px;
+	vertical-align: text-bottom;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+
+/* PASTE */
+p.showimage {
+	background-color: #333;
+}
+#hookPaste {
+	color: #333;
+	background-color: transparent;
+	width: 100%;
+	height: 5em;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: 1px solid #CCC;
+	overflow: hidden;
+}
+#hookPaste.drag {
+	color: #333;
+	background-color: #FFC;
+}
+#hookPaste > img {
+	display: none;
+}

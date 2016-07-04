@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' ; img-src 'self' data: ;">
+<title>Purification facility</title>
+<link rel="alternate" hreflang="ja" href="https://ram.tkch.net/">
+<!-- STYLE -->
+<link rel="stylesheet" type="text/css" href="main.css">
+<!-- ICON -->
+<link rel="apple-touch-icon" sizes="144x144" href="icon.png">
+<link rel="icon" sizes="144x144" href="icon.png">
+<link rel="icon" sizes="144x144" href="icon.png">
+<!-- FOR MOBILE -->
+<meta name="theme-color" content="#000">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<!-- SEARCH CONSOLE -->
+<meta name="google-site-verification" content="Tvjmav-mhLqwRCAi5NVK93LM4wLKD6VBBileSclpmHE" />
+</head>
+
+<body>
+
+
+<nav id="top">
+  <ul>
+    <li><a href="#history">更新履歴</a></li>
+    <li><a href="#arduboy">Arduboy</a></li>
+    <li><a href="#paste">Twitter投稿用PNG作成</a></li>
+    <li><a href="#memo">メモ</a></li>
+  </ul>
+</nav>
+
+<h1>Purification facility</h1>
+<p id="h1desc">
+  試験的なサーバを建てたので、そちらで運用を試みる<br>
+  基本的にipv6で接続したほうが早い(ipv4の方はたまに落ちるかも)
+</p>
+
+
+
+
+<div id="history">
+  <h2>更新履歴</h2>
+  <dl>
+    <dt>2016-07-04</dt>
+    <dd>
+      適当にサーバでっち上げたので今後はこっちを更新<br>
+      元のサイトは最後の変更より何もしない予定<br>
+      <a href="http://www.geocities.jp/stkchp/">腐った水槽</a><br>
+    </dd>
+  </dl>
+  <h2>検索ツール(私用)</h2>
+  <form action="https://www.google.co.jp/search" method="get">
+    <input type="hidden" name="q" value="site:en.cppreference.com">
+    <input type="text" name="q" value="">
+    <input type="submit" value="en.cppreference.com 検索">
+  </form>
+  <form action="https://www.google.co.jp/search" method="get">
+    <input type="hidden" name="q" value="site:cookpad.com/recipe">
+    <input type="text"   name="q" value="">
+    <input type="submit" value="レシピ検索">
+  </form>
+  <form action="https://www.google.co.jp/search" method="get">
+    <input type="hidden" name="q" value="site:https://api.jquery.com/">
+    <input type="text"   name="q" value="">
+    <input type="submit" value="jQuery検索">
+  </form>
+  <form action="https://www.google.co.jp/search" method="get">
+    <input type="hidden" name="q" value="site:https://golang.org/pkg/ | site:https://github.com/golang/go/wiki/">
+    <input type="text"   name="q" value="">
+    <input type="submit" value="golang package検索">
+  </form>
+
+</div>
+
+
+
+
+<div id="arduboy">
+  <h2>Arduboy</h2>
+  <p>
+    <a href="https://www.arduboy.com/store/products/arduboy">Arduboy</a>持ってないけどあそびたい
+  </p>
+  <p>
+    <a href="https://twitter.com/emutyworks">emuty</a>さんがまとめている<a href="http://community.arduboy.com/t/welcome-new-developers-a-listing-of-development-links-and-articles/1857">Welcome New Developers! A Listing of Development Links and Articles</a>をみれば間違いない
+  </p>
+  <h3>Spec</h3>
+  <dl>
+    <dt>CPU</dt>
+    <dd>ATmega32u4(<a href="http://www.atmel.com/images/atmel-7766-8-bit-avr-atmega16u4-32u4_datasheet.pdf">DataSheet</a>)</dd>
+    <dt>Memory</dt>
+    <dd>32KB Flash, 2.5KB RAM, 1KB EEPROM</dd>
+    <dt>Inputs</dt>
+    <dd>6 momentary tactile buttons(up, down, left, right, a, b)</dd>
+    <dt>Output</dt>
+    <dd>display: 128x64(1bit),sound: 2ch. piezo speaker, led</dd>
+  </dl>
+  <h3>info</h3>
+  <p><a href="http://community.arduboy.com/t/dev-kit-hardware/174">このへん</a>を見ればわかる</p>
+  <p>AVRの参考<a href="http://www.apony.com/elec/avr1/avr1.html">Ｎの電子講座・AVRマイコン編</a></p>
+  <h3>シミュレータ</h3>
+  <p>
+  既存のが幾つかある模様。<br>
+  CPU自体のsimulatorあたりはこの辺が参考になる -&gt; "<a href="https://github.com/buserror/simavr">github: buserror/simavr</a>"
+  </p>
+  <h3>ATmega32u4の特徴</h3>
+  <ul>
+    <li>135の命令セット、大抵1クロックサイクルで実行される</li>
+    <li>32x8サイズの一般的な作業用レジスタがある</li>
+    <li>最大16MIPS</li>
+    <li>掛け算も2cycleでできる</li>
+    <li>Flash  --- 10,000 Cycleで Write/Erase</li>
+    <li>EEPROM --- 100,000 Cycleで Write/Erase</li>
+    <li>ProgramCounterは16bit？？</li>
+  </ul>
+  <h3>8bit CPUの動き理解</h3>
+  <p>
+  <a href="https://schweigi.github.io/assembler-simulator/">Simple 8-bit Assembler Simulator</a>
+  </p>
+  <h3>使用しているレジスタなどの参考</h3>
+  <p><a href="https://github.com/Arduboy/Arduboy">Arduboy/Arduboy Core library for the Arduboy.</a></p>
+  <ul>
+    <li>Arduboy.h -&gt; Arduboyコアのクラス</li>
+    <li>Arduboy.cpp -&gt; Arduboyコアのクラス</li>
+    <li>ab_logo.c -&gt; Arduboyのロゴの画像データ</li>
+    <li>ab_printer.h -&gt; Ardubo文字表示関連のクラス</li>
+    <li>ab_printer.cpp -&gt; Ardubo文字表示関連のクラス</li>
+    <li>glcdfont.c -&gt; フォントデータ(5x7)</li>
+    <li>core/core.h -&gt; Arduboyクラスで利用されるピンの情報やPROGMEM等</li>
+    <li>core/core.cpp -&gt; Arduboyクラスで利用されるピンの情報やPROGMEM等</li>
+    <li>audio/audio.h -&gt; SpeakerのON/OFF STATEの変更などができるクラス</li>
+    <li>audio/audio.cpp -&gt; SpeakerのON/OFF STATEの変更などができるクラス</li>
+  </ul>
+  <p>本家のArduinoソース見ないとなんともいえない</p>
+  <ul>
+    <li><a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/Arduino.h">arduino/Arduino Arduino.h(avr)</a></li>
+    <li><a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/variants/leonardo/pins_arduino.h">arduino/Arduino pins_arduino.h(leonardo)</a></li>
+    <li><a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/wiring_analog.c">AnalogWrite</a></li>
+    <li><a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/wiring_digital.c">pinMode</a></li>
+  </ul>
+  <p>更にAVRのlibcの関数を見る必要がある場合も</p>
+  <ul>
+    <li><a href="https://github.com/vancegroup-mirrors/avr-libc/tree/master/avr-libc/">avr-libc</a></li>
+  </ul>
+  <ul>
+  </ul>
+  <h3>BootLoader関連</h3>
+  <ul>
+    <li>
+      小さいブートローダ(<a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/bootloaders/caterina/Caterina.c">Caterina</a>を使っているので、
+      0x3800から始まり空白領域も結構ある。Arduboy用に絞って予め使いそうな画像データをSRAMに書き込んでおく、とかも出来そう。PowerOnにした時毎回BootLoaderから呼ばれるのかしら。
+    </li>
+    <li>アセンブラレベルの内容は<a href="bootloader.html">これ</a></li>
+  </ul>
+  <h3>割り込み関連</h3>
+  <ul>
+    <li>43種の割り込みがあっててえへんだてえへんだってなったけど、BootLoader以外では以下しか使ってない。</li>
+    <li>01 0x0000 RESET</li>
+    <li>08 0x0014 USB General</li>
+    <li>09 0x0016 USB EndPoint</li>
+    <li>18 0x0022 TIMER1 COMPA</li>
+    <li>24 0x002E TIMER0 OVF</li>
+    <li>33 0x0040 TIMER3 COMPA</li>
+    <li>18/33はサウンド関連のはず</li>
+    <li>24のOVFに関してはArduino標準ライブラリ(milis()など)で使ってた。<a href="https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/wiring.c#L42-L63">この部分</a>。<br>
+        時間関係の重要な部分...</li>
+  </ul>
+  <h3>ボタン関連</h3>
+  <ul>
+    <li>$2F - PINF(PINF7 down, PINF6 up, PINF5 left, PINF4 right)</li>
+    <li>$2C - PINE(PINE6 A[left])</li>
+    <li>$23 - PINB(PINB4 B[right])</li>
+    <li>キー状態変わったらこの辺のビット変更すればよさげ</li>
+  </ul>
+  <h3>LED関連</h3>
+  <ul>
+    <li>BLUE_LED 9(Analog) -&gt; TIMER1A TCCR1AのCOM1A1を1にしてOCR1Aに値を入れる</li>
+    <li>RED_LED 10(Analog) -&gt; TIMER1B TCCR1AのCOM1B1を1にしてOCR1Bに値を入れる</li>
+    <li>GREEN_LED 11(Analog) -&gt; TIMER0A TCCR0AのCOM0A1を1にしてOCR0Aに値を入れる</li>
+    <li>TX_LED 30 -&gt; 何に使うか不明</li>
+    <li>RX_LED 17 -&gt; 何に使うか不明</li>
+  </ul>
+  <p>analogWriteで色を設定している模様<br>
+    (255 - v)した値をセット<br>
+    適当でいいならOCR0A(G) OCR1A(B) OCR1B(R)を見ていれば良さそう<br>
+    読んだらCOM1A1,COM1B1,COM0A1を0に戻しておく
+  </p>
+  <h3>サウンド関連</h3>
+  <ul>
+    <li>ON/OFFのSTATE管理にEEPROM使うっぽい</li>
+    <li>
+      PIN_SPEAKER_1 5(D5 - PC6) portはPC(3), bitは6<br>
+      ON時は一時的に割り込みを禁止にして、DDRC($27)の該当bitを1にする<br>
+      OFF時は一時的に割り込みを禁止にして、DDRC($27)とPORTC($28)の該当bitを0にする<br>
+    </li>
+    <li>
+      PIN_SPEAKER_2 13(D13 - PC7) portはPC(3), bitは7<br>
+      動作はSPEAKER_1と同じ
+    </li>
+    <li>デフォルトのArduboyクラスにはOn/Off等しか存在しない為、<a href="https://github.com/Arduboy/ArduboyPlayTune">Arduboy/ArduboyPlayTune The ArduboyPlayTune library.</a>を参考にする</li>
+    <li>使えるTIMERは2つ</li>
+    <li>16bit TIMERであるTIMER1, TIMER3を使用</li>
+    <li>初期化(初期化前にarduboy.audio.on()が必要)
+      <ul>
+        <li>最初に初期化したChannelがTIMER3、次がTIMER1を使う</li>
+        <li>PRR0($64)のPRTIM1(3bit), PRR1($65)のPRTIM3(3bit)をONにする</li>
+        <li>TCCR1A($80)、TCCR1B($81)を全てクリア、TCCR1BのWGM12とCS10を1にセットする</li>
+        <li>TCCR3A($90)、TCCR3B($91)を全てクリア、TCCR3BのWGM32とCS30を1にセットする</li>
+      </ul>
+    </li>
+    <li>再生
+      <ul>
+        <li>セットするOCRが大きい場合はck/1の精度からck/64の精度に変更する。ck/1はTCCR1Bの下3bitが0b001、ck/64は下3bitが0b011</li>
+	<li>OCR1A(H/L)にOCR(16bit)の値をセットする</li>
+	<li>TIMSK1のOCIE1Aを1にセットする(割り込み開始)</li>
+	<li>Iフラグが0の時に割り込みが発生し、発生した場合は$0022へ飛ぶ</li>
+      </ul>
+    </li>
+
+    <li>停止
+      <ul>
+        <li>TIMSK1のOCIE1Aを0にセットする(割り込み停止)</li>
+	<li>PORTCの該当bit(6,7)をOFFにする(出力しなくなる)</li>
+      </ul>
+    </li>
+
+    <li>終了処理
+      <ul>
+        <li>TIMSK1のOCIE1Aを0にセットする(割り込み停止)</li>
+        <li>一時的に割り込みを禁止にして(T=0)、DDRC($27)とPORTC($28)の該当bit(6,7)を0にする<br>
+      </ul>
+    </li>
+  </ul>
+  <h3>LCD関連</h3>
+  <ul>
+    <li>SPIでの転送</li>
+  </ul>
+</div>
+
+
+
+<div id="paste">
+<h2>Twitter投稿用PNG作成</h2>
+<ul>
+  <li>しっかり作ってあるのは <a href="https://twitter.com/totoraj930">@totorajさん</a>の<a href="http://totoraj930.github.io/twi-png/">TwI PNG</a>の方なので基本的にそちらをご利用ください</li>
+  <li>モバイルはTwI PNGさんにアップして変換したほうが早い</li>
+  <li>ペイントなどでコピーしたClipboardにある画像データをTwitterで利用できるPNGファイルへ変換します</li>
+  <li>別タブで開いているTwitterにファイルをDrag and Dropすれば比較的簡単にアップロード可能です</li>
+  <li>サイズの上限は2048x2048に制限</li> 
+  <li>Chrome/Edge/Opera/IE/Firefoxにて動作確認済</li>
+  <li>Firefoxはエクスプローラでコピーした画像ファイルも貼り付けられる謎仕様</li>
+  <li>お使いのブラウザ内で完結する処理なので、画像データのやり取りをサーバと行いません。</li>
+</ul>
+<p>
+倍率:
+<select id="pixelscale">
+  <option selected>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+</select><br>
+タイル状: 
+<select id="headertile">
+  <option selected value=0>並べない</option>
+  <option value=1>並べる(Twitter ヘッダ用 1500x500)</option>
+  <option value=2>並べる(カスタムサイズ)</option>
+</select>
+</p>
+<div id="tilesize">
+W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=number value=256>
+</div>
+<canvas id="pasteimg" width="0" height="0"></canvas>
+<p id="hookPaste" class="show" contenteditable="true">ここにファイルをドラッグ＆ドロップ、もしくは画像をコピーして貼り付けてください</p>
+<p>
+以下に画像が表示されます
+</p>
+<p class="showimage">
+<img id="pngimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="output png image">
+</p>
+</div>
+
+
+
+
+<div id="memo">
+<h2>メモ</h2>
+<h3>VisualStudio</h3>
+<ul>
+  <li>置換は正規表現が使える <a href="https://msdn.microsoft.com/en-us/library/2k3te2cs.aspx">MSDN</a></li>
+  <li>マッチした部分を置換後に使うには()や(?&lt;name&gt;)で括ったりして$1や${name}でアクセスする <a href="https://msdn.microsoft.com/en-us/library/ewy2t5e0.aspx">MSDN</a></li>
+  <li>検索部分で入力中に間違えたと思ってCtrl+Zを押すと、検索窓じゃなくて書いたコードが巻き戻るので注意</li>
+</ul>
+</div>
+
+
+
+
+<footer>
+  <p>Admin tools: <a href="https://www.google.com/webmasters/tools/">Search Console</a> / <a href="https://html5.validator.nu/?doc=https%3A%2F%2Fram.tkch.net">HTML5 validate(this page)</a></p>
+  <p>&copy;2016 <img alt=icon src=icon.png><a href="https://twitter.com/stkchp">stkchp</a></p>
+</footer>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "腐水(stkchp)",
+  "url": "https://ram.tkch.net/",
+  "image": "https://ram.tkch.net/icon.png",
+  "WorksFor": "Unemployed"
+}
+</script>
+</body>
+</html>

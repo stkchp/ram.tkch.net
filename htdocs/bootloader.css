@@ -1,0 +1,22 @@
+td {
+	font-family: consolas, monospace;
+	border-bottom: 1px solid #ccc;
+}
+
+td.codeaddr {
+	width: 8em;
+	text-align: center;
+}
+
+td.codebits {
+	width: 20em;
+	text-align: center;
+}
+
+td.codearg1, td.codearg2 {
+	width: 5em;
+	text-align: right;
+}
+td.codecomm {
+	padding-left: 2em;
+}
