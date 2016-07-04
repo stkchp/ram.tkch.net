@@ -25,5 +25,6 @@ find ./htdocs -type f | grep -v ".gz$" | check_size
 
 
 
-# data upload(rsync...?)
-scp -r $CURDIR/htdocs/* ram.tkch.net:/var/www/ram.tkch.net/htdocs/
+# data upload
+# remote server don't have rsync, use scp instead.
+scp -rp $CURDIR/htdocs/* ram.tkch.net:/var/www/ram.tkch.net/htdocs/
