@@ -28,6 +28,7 @@
     <li><a href="#history">更新履歴</a></li>
     <li><a href="#arduboy">Arduboy</a></li>
     <li><a href="#paste">Twitter投稿用PNG作成</a></li>
+    <li><a href="#mono">モノクロ変換</a></li>
     <li><a href="#memo">メモ</a></li>
   </ul>
 </nav>
@@ -297,6 +298,29 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
 <p class="showimage">
 <img id="pngimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="output png image">
 </p>
+</div>
+
+<div id="mono">
+<h2>モノクロ変換</h2>
+<ul>
+  <li>RGB(255,255,255)の値の合計が382以上の場合は白、それ以外は黒に変換します。</li>
+  <li>ファイルをドラッグ＆ドロップしてください</li>
+  <li>下部のtextareaに画像を0,1で表したデータが表示されます。(Cとかで使えれば)</li>
+  <li>ブラウザ側で処理をする為、大きいファイルは動作が重いかもしれません。</li>
+  <li>Chrome/Edge/Opera/IE/Firefoxにて動作確認済</li>
+  <li>Firefoxはエクスプローラでコピーした画像ファイルも貼り付けられる謎仕様</li>
+  <li>お使いのブラウザ内で完結する処理なので、画像データのやり取りをサーバと行いません。</li>
+</ul>
+<canvas id="origimg" width="0" height="0"></canvas>
+<canvas id="monoimg" width="0" height="0"></canvas>
+<p id="hookMonoPaste" class="show" contenteditable="true">ここにファイルをドラッグ＆ドロップ、もしくは画像をコピーして貼り付けてください</p>
+<p>
+以下に画像が表示されます
+</p>
+<p class="showimage">
+<img id="monopngimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="output mono png image">
+</p>
+<textarea id="monocode"></textarea>
 </div>
 
 
