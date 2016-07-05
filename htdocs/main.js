@@ -154,6 +154,10 @@ function imageToMono(simg) {
 				p.data[i+2] = 0;
 				txt += "0,"
 			}
+			// for twitter
+			if (i == 0 && p.data[i+3] == 0xFF) {
+				p.data[i+3] = 0xFE;
+			}
 		}
 		txt += "\n";
 	}
