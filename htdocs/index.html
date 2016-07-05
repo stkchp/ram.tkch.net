@@ -311,6 +311,10 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
   <li>Firefoxはエクスプローラでコピーした画像ファイルも貼り付けられる謎仕様</li>
   <li>お使いのブラウザ内で完結する処理なので、画像データのやり取りをサーバと行いません。</li>
 </ul>
+<select id="monotxttype">
+  <option selected value=0>0,1で左上から右に向かって並べる</option>
+  <option value=1>uint64_t形式の16進数(左上から右に向かって並べる)</option>
+</select>
 <canvas id="origimg" width="0" height="0"></canvas>
 <canvas id="monoimg" width="0" height="0"></canvas>
 <p id="hookMonoPaste" class="show" contenteditable="true">ここにファイルをドラッグ＆ドロップ、もしくは画像をコピーして貼り付けてください</p>

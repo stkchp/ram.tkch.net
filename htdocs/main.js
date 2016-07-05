@@ -119,6 +119,7 @@ function imageToMono(simg) {
 
 	if(src.w > 256 || src.h > 256) {
 		$("textarea#monocode").text("画像サイズが大きい(256x256超過)の為、処理を停止しました");
+		return;
 	}
 
 	// set canvas size
@@ -137,7 +138,7 @@ function imageToMono(simg) {
 
 	var p = octx.getImageData(0, 0, src.w, src.h);
 
-	var txt = "";
+	var data = [];
 
 	for(var iy = 0; iy < src.h; ++iy) {
 		for(var ix = 0; ix < src.w; ++ix) {
@@ -147,19 +148,18 @@ function imageToMono(simg) {
 				p.data[i] = 255;
 				p.data[i+1] = 255;
 				p.data[i+2] = 255;
-				txt += "1,";
+				data.push(1);
 			} else {
 				p.data[i] = 0;
 				p.data[i+1] = 0;
 				p.data[i+2] = 0;
-				txt += "0,"
+				data.push(0);
 			}
 			// for twitter
 			if (i == 0 && p.data[i+3] == 0xFF) {
 				p.data[i+3] = 0xFE;
 			}
 		}
-		txt += "\n";
 	}
 
 	mctx.putImageData(p, 0, 0);
@@ -168,6 +168,42 @@ function imageToMono(simg) {
 	$("img#monopngimg").attr("src", mcvs.toDataURL());
 
 	// textarea
+	var txt = "";
+	switch($("select#monotxttype")) {
+	case 0:
+		for(var iy = 0; iy < src.h; ++ iy) {
+			for(var ix = 0; ix < src.w; ++ix) {
+				txt += data[iy*src.w+ix] + ",";
+			}
+			txt += "\n";
+		}
+		break;
+	case 1:
+		for(var iy = 0; iy < src.h; ++ iy) {
+			uint64 = [];
+			for(var ix = 0; ix < src.w; ++ix) {
+				if(ix % 64 == 0) {
+					uint64.push(0);
+				}
+				var i = iy*src.w+ix;
+				if(data[iy*src.h+ix] == 1) {
+					uint64[Math.floor(i / 64)] |= 1 << (63 - (i % 64));
+				}
+
+			}
+			for(var i = 0; i < uint64.length; ++i) {
+				var hex = uint64.toString(16);
+				txt += "0x";
+				for(var k = 0;  k < 16 - hex.length; ++k) {
+					txt += "0";
+				}
+				txt += hex + ",";
+
+			}
+			txt += "\n";
+		}
+		break;
+	}
 	$("textarea#monocode").text(txt);
 
 
