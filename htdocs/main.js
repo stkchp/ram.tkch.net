@@ -117,6 +117,10 @@ function imageToMono(simg) {
 	src.w = simg.width;
 	src.h = simg.height;
 
+	if(src.w > 256 || src.h > 256) {
+		$("textarea#monocode").text("画像サイズが大きい(256x256超過)の為、処理を停止しました");
+	}
+
 	// set canvas size
 	$("canvas#origimg")[0].width = src.w;
 	$("canvas#origimg")[0].height = src.h;
