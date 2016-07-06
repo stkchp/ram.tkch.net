@@ -5,7 +5,7 @@ CURDIR=$(pwd)
 
 
 # compress(for gzip_static)
-find ./htdocs -type f | grep -v ".gz$" | xargs gzip --best -k -f 
+find ./htdocs -type f | grep -v ".gz$" | xargs zopfli
 
 
 

@@ -173,7 +173,7 @@ function imageToMono(simg) {
 
 	// textarea
 	var txt = "";
-	var texttype = perseInt($("#monotxttype").val(), 10);
+	var texttype = parseInt($("#monotxttype").val(), 10);
 	switch(texttype) {
 	case 0:
 		for(var iy = 0; iy < src.h; ++ iy) {
@@ -407,7 +407,7 @@ $(document).ready(function() {
 	});
 	
 	$("#monotxttype").change(function() {
-		if(oldImg != null) {imageToMono(oldmonoImg);}
+		if(oldmonoImg != null) {imageToMono(oldmonoImg);}
 	});
 
 ;});
