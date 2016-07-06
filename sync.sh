@@ -8,7 +8,7 @@ CURDIR=$(pwd)
 find ./htdocs -type f | grep -v ".gz$" | xargs zopfli
 
 
-
+# check gz <=> normal file, if normal is small, delete it.
 check_size() {
 	while read line
 	do
@@ -18,11 +18,12 @@ check_size() {
 		[[ $BASE -lt $COMP ]] && rm -vf ${line}.gz
 	done
 }
-
 find ./htdocs -type f | grep -v ".gz$" | check_size
 
 
 
 # data upload
 # remote server don't have rsync, use scp instead.
-scp -rp $CURDIR/htdocs/* ram.tkch.net:/var/www/ram.tkch.net/htdocs/
+# scp -rp $CURDIR/htdocs/* ram.tkch.net:/var/www/ram.tkch.net/htdocs/
+# remote server have rsync, use checksum comparison.
+rsync -rlpcgoDv --delete $CURDIR/htdocs/ ram.tkch.net:/var/www/ram.tkch.net/htdocs/
