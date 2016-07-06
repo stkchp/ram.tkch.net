@@ -109,8 +109,12 @@ function imageToCanvas(simg) {
 // for #mono page
 //
 
+var oldmonoImg = null;
+
 function imageToMono(simg) {
-	
+
+	// store
+	oldmonoImg = simg;
 
 	// draw canvas
 	var src = {w: 0, h: 0};
@@ -169,7 +173,8 @@ function imageToMono(simg) {
 
 	// textarea
 	var txt = "";
-	switch($("select#monotxttype")) {
+	var texttype = perseInt($("#monotxttype").val(), 10);
+	switch(texttype) {
 	case 0:
 		for(var iy = 0; iy < src.h; ++ iy) {
 			for(var ix = 0; ix < src.w; ++ix) {
@@ -179,26 +184,50 @@ function imageToMono(simg) {
 		}
 		break;
 	case 1:
+	case 2:
+	case 3:
+	case 4:
 		for(var iy = 0; iy < src.h; ++ iy) {
-			uint64 = [];
+			var bit4 = [];
 			for(var ix = 0; ix < src.w; ++ix) {
-				if(ix % 64 == 0) {
-					uint64.push(0);
+				if(ix % 4 == 0) {
+					bit4.push(0);
 				}
 				var i = iy*src.w+ix;
-				if(data[iy*src.h+ix] == 1) {
-					uint64[Math.floor(i / 64)] |= 1 << (63 - (i % 64));
+				if(data[i] == 1) {
+					bit4[Math.floor(ix / 4)] |= 1 << (3 - (ix % 4));
 				}
-
 			}
-			for(var i = 0; i < uint64.length; ++i) {
-				var hex = uint64.toString(16);
+			
+			// print
+			var split = 32;
+			
+			switch(texttype) {
+			case 1:
+				split = 16;
+				break;
+			case 2:
+				split = 8;
+				break;
+			case 3:
+				split = 4;
+				break;
+			case 4:
+				split = 2;
+				break;
+			}
+
+			for(var i = 0; i < Math.ceil(bit4.length/split); ++i) {
 				txt += "0x";
-				for(var k = 0;  k < 16 - hex.length; ++k) {
+				hex = "";
+				for(var k = 0; k < bit4.length - (split * i) && k < split; ++k) {
+					hex += bit4[i * split + k].toString(16);
+				}
+				txt += hex;
+				for(var k = 0;  k < split - hex.length; ++k) {
 					txt += "0";
 				}
-				txt += hex + ",";
-
+				txt += ",";
 			}
 			txt += "\n";
 		}
@@ -366,6 +395,19 @@ $(document).ready(function() {
 	// change status re image creation
 	$("#pixelscale, #headertile, #tilewidth, #tileheight").change(function() {
 		if(oldImg != null) {imageToCanvas(oldImg);}
+	});
+
+	//
+	// for mono
+	// 
+	// show sample text image
+	$("img#monotxtimg").attr("src", "mono/" + $("#monotxttype").val() + ".png");
+	$("#monotxttype").change(function() {
+		$("img#monotxtimg").attr("src", "mono/" + $("#monotxttype").val() + ".png");
+	});
+	
+	$("#monotxttype").change(function() {
+		if(oldImg != null) {imageToMono(oldmonoImg);}
 	});
 
 ;});

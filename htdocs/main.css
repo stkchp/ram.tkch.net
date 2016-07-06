@@ -90,3 +90,11 @@ p.showimage {
 #hookPaste > img, #hookMonoPaste > img {
 	display: none;
 }
+
+#monocode {
+	width: 100%;
+	height: 10em;
+	margin: 0;
+	padding: 0;
+	font-family: monospace;
+}

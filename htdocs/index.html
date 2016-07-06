@@ -314,7 +314,12 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
 <select id="monotxttype">
   <option selected value=0>0,1で左上から右に向かって並べる</option>
   <option value=1>uint64_t形式の16進数(左上から右に向かって並べる)</option>
+  <option value=2>uint32_t形式の16進数(左上から右に向かって並べる)</option>
+  <option value=3>uint16_t形式の16進数(左上から右に向かって並べる)</option>
+  <option value=4>uint8_t形式の16進数(左上から右に向かって並べる)</option>
 </select>
+<p>出力テキストイメージ<br>
+<img id="monotxtimg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="output text image"></p>
 <canvas id="origimg" width="0" height="0"></canvas>
 <canvas id="monoimg" width="0" height="0"></canvas>
 <p id="hookMonoPaste" class="show" contenteditable="true">ここにファイルをドラッグ＆ドロップ、もしくは画像をコピーして貼り付けてください</p>
