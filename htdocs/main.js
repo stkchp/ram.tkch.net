@@ -143,12 +143,13 @@ function imageToMono(simg) {
 	var p = octx.getImageData(0, 0, src.w, src.h);
 
 	var data = [];
+	var threshold = parseInt($("#monoThreshold").val());
 
 	for(var iy = 0; iy < src.h; ++iy) {
 		for(var ix = 0; ix < src.w; ++ix) {
 			var i = (iy*src.w + ix)*4;
 			var sum = p.data[i] + p.data[i+1] + p.data[i+2];
-			if(sum > 100) {
+			if(sum > threshold) {
 				p.data[i] = 255;
 				p.data[i+1] = 255;
 				p.data[i+2] = 255;
@@ -406,7 +407,10 @@ $(document).ready(function() {
 		$("img#monotxtimg").attr("src", "mono/" + $("#monotxttype").val() + ".png");
 	});
 	
-	$("#monotxttype").change(function() {
+	$("#monotxttype,#monoThreshold").change(function() {
+		if($(this).attr("id") == "monoThreshold") {
+			$("span#monothresholdvalue").text($(this).val());
+		}
 		if(oldmonoImg != null) {imageToMono(oldmonoImg);}
 	});
 

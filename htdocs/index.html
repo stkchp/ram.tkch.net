@@ -45,6 +45,11 @@
 <div id="history">
   <h2>更新履歴</h2>
   <dl>
+    <dt>2016-07-06</dt>
+    <dd>
+      <a href="#mono">モノクロ変換</a>ページを追加<br>
+      現在作ってるモノに使うために必要な部分を実装
+    </dd>
     <dt>2016-07-05</dt>
     <dd>
       rootに飛んだ時に戻れないような糞仕様になっていたので修正<br>
@@ -303,7 +308,7 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
 <div id="mono">
 <h2>モノクロ変換</h2>
 <ul>
-  <li>RGB(255,255,255)の値の合計が100以上の場合は白、それ以外は黒に変換します。</li>
+  <li>RGB(255,255,255)の値の合計が100(可変)以上の場合は白、それ以外は黒に変換します。</li>
   <li>ファイルをドラッグ＆ドロップしてください</li>
   <li>下部のtextareaに画像を0,1で表したデータが表示されます。(Cとかで使えれば)</li>
   <li>ブラウザ側で処理をする為、大きいファイルは動作が重いです。256x256に制限しています。</li>
@@ -311,6 +316,9 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
   <li>Firefoxはエクスプローラでコピーした画像ファイルも貼り付けられる謎仕様</li>
   <li>お使いのブラウザ内で完結する処理なので、画像データのやり取りをサーバと行いません。</li>
 </ul>
+<p>
+閾値: <input type="range" id="monoThreshold" min=1 max=764 value=100> (最小: 1、最大: 764、現在: <span id="monothresholdvalue">100</span>)
+</p>
 <select id="monotxttype">
   <option selected value=0>0,1で左上から右に向かって並べる</option>
   <option value=1>uint64_t形式の16進数(左上から右に向かって並べる)</option>
