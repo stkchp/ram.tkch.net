@@ -414,4 +414,17 @@ $(document).ready(function() {
 		if(oldmonoImg != null) {imageToMono(oldmonoImg);}
 	});
 
+
+	//
+	// ipv4 or ipv6??
+	//
+	$.get( "/ipv6.txt", function(data) {
+		console.log(data);
+		if(parseInt(data, 10) == 0) {
+			$("#ipv6").html("<img src='./viaipv4.png' alt=ipv4>");
+		} else {
+			$("#ipv6").html("<img src='./viaipv6.png' alt=ipv6>");
+		}
+	});
+
 ;});

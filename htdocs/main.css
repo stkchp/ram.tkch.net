@@ -98,3 +98,8 @@ p.showimage {
 	padding: 0;
 	font-family: monospace;
 }
+
+#ipv6 img{
+	width: 24px;
+	height: 15px;
+}
