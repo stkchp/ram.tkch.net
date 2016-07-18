@@ -44,6 +44,10 @@
 <div id="history">
   <h2>更新履歴</h2>
   <dl>
+		<dt>2016-07-13</dt>
+		<dd>
+		  Arduboyのページを加筆修正(SPI/OLCD関連)
+		</dd>
     <dt>2016-07-06</dt>
     <dd>
       <a href="#mono">モノクロ変換</a>ページを追加<br>
@@ -52,7 +56,7 @@
     <dt>2016-07-05</dt>
     <dd>
       rootに飛んだ時に戻れないような糞仕様になっていたので修正<br>
-      あとソースは消し飛んだ時の為、バックアップ目的でgithubへ
+      あとソースは消し飛んだ時の為、バックアップ目的でgithubへ置くようにした
     </dd>
 
     <dt>2016-07-04</dt>
@@ -255,6 +259,32 @@
   <h3>LCD関連</h3>
   <ul>
     <li>SPIでの転送</li>
+    <li>Arduboy側(SPCR/SPSR/SPDR[MSB/LSB])
+      <ul>
+				<li>SPCR = SPIコントロールレジスタ。Bit7は割り込み関連だけど前述のとおり使われていないっぽい</li>
+			  <li>Bit6のSPEは、SPIを使う場合は必ず1にセットする。</li>
+				<li>Bit5は送信するデータの順番。1だとLSB、0だとMSBが先に送られる。</li>
+				<li>Bit4はSPIのモードを選択する。1だとMaster、0だとSlave。</li>
+				<li>Bit3は電圧の高低どちらでIdleするか。1だとHigh、0だとLow。</li>
+				<li>Bit2はどのようにデータを送るか。実際に図説を見た方が早い</li>
+				<li>Bit1/Bit0はoscの速度を決定する。SPSRのBit0も関係する</li>
+				<li>SPSR = SPIステータスレジスタ。Bit7は割り込み関連だけどこちらも使われておらず(Slave時は重要？)。</li>
+				<li>Bit6(WCOL)はデータ送信中は1にセットされる。このビットは見に行った際にデータ送信されていない場合にクリアされるので、データを書き込む前に確認する必要がある。</li>
+				<li>Bit5...Bit1は使われてない。</li>
+				<li>Bit0はoscの速度決定に使われる。フラグが立ってると2倍速になる模様</li>
+				<li>SPDR = SPIデータレジスタ。Bit7がMSB、Bit0がLSB。</li>
+				<li>SPDRにデータを書き込めばデータの送信が開始され、読み込めばSPI Shift Register(LCD側？)のデータが受信される。</li>
+				<li>OLCDと繋がっているピンのうちDCは4、CSは12、RSTは6(DevkitはCSとRSTが逆)</li>
+				<li>
+					RSTは画面のリセットに使用され、DCは1だとデータ、0はコマンド。<del>CSは1がRead、0がWrite。</del>CSは常に0の模様。
+				  Arduboyの場合、コマンド送信とデータ送信のみなので、DC=0/1でCSはほぼ0のはず。  <br>
+			    細かいのは<a href="https://github.com/Arduboy/Arduboy/blob/master/src/core/core.cpp">Arduboyライブラリのソース</a>を見る方が早い。
+			  <li>
+			</ul>
+    </li>
+    <li>SSD1306側
+      <ul>
+        <li>BS2,BS1,BS0はMCUバスのインターフェースピン。用途については別途</li>
   </ul>
 </div>
 
@@ -355,6 +385,10 @@ W: <input id="tilewidth"  type=number value=256> H: <input id="tileheight" type=
   <li>C/C++でかいたコードがブラウザ上で動く</li>
   <li>ll形式に変換後、llcでwasm32形式のSファイルに変換後、binaryanのs2wasmを使う</li>
   <li>今のところよくわかっていない</li>
+</ul>
+<h3>メインマシン</h3>
+<ul>
+  <li><a href="http://old.zotac.com/us/products/mini-pcs/zbox-nano-series/zbox-nano/product/zbox-nano/detail/zbox-nano-id63-plus/sort/starttime/order/DESC/amount/10.html">ZOTAC ZBOX nano ID63 PLUS</a></li>
 </ul>
 
 
